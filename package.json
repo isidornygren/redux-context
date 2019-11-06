@@ -1,0 +1,37 @@
+{
+  "name": "redux-context",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "check-prettier": "prettier --check '**/*.{ts,tsx}'",
+    "prettier": "prettier --write '**/*.{ts,tsx}'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isidornygren/redux-context.git"
+  },
+  "keywords": [
+    "redux",
+    "reducers",
+    "context"
+  ],
+  "author": "Isidor Nygren",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/isidornygren/redux-context/issues"
+  },
+  "homepage": "https://github.com/isidornygren/redux-context#readme",
+  "dependencies": {
+    "redux": "^4.0.4",
+    "reselect": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.22",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.7.2"
+  }
+}

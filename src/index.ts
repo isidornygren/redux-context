@@ -1,29 +1,18 @@
-interface ReduxContextProps<T> {
-  actionType: string;
-  defaultState?: T;
-}
+import { AnyAction } from 'redux';
+import { Selector, createSelector } from 'reselect';
+import { createContextActionSet } from './utils';
 
-interface ContextActionSet {
-  CLEAR: string;
-  MERGE: string;
-  SET: string;
-}
+export { mapContextToProps } from './utils';
 
-function createContextActionSet(actionName: string): ContextActionSet {
-  return {
-    CLEAR: `${actionName}_CLEAR`,
-    MERGE: `${actionName}_MERGE`,
-    SET: `${actionName}_SET`,
-  };
-}
-
-function createUiContext<T>(
+export function createUiContext<T>(
+  name: string,
   actionType: string,
   rootSelector: Selector<any, any>,
   defaultState?: T
 ) {
   const actionSet = createContextActionSet(actionType);
   return {
+    _name: name,
     reducer: (
       state: T | null = defaultState || null,
       action: AnyAction
@@ -47,9 +36,13 @@ function createUiContext<T>(
         }
       }
     },
-    selector: createSelector(rootSelector, root => ),
+    selector: createSelector(rootSelector, root => root[name]),
     setAction: (payload: T) => ({
       type: actionSet.SET,
+      payload,
+    }),
+    mergeAction: (payload: Partial<T>) => ({
+      type: actionSet.MERGE,
       payload,
     }),
     clearAction: () => ({
@@ -58,11 +51,3 @@ function createUiContext<T>(
     [actionType]: actionSet,
   };
 }
-
-function mapContextToProps(...args: ReduxContext[]) {}
-
-export const UIContext = createUiContext<boolean>(
-  'ACTIVITY_STATUS',
-  state => state.ui,
-  false
-);
